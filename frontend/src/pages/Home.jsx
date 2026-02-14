@@ -6,21 +6,6 @@ const HomePage = ({ heroes }) => {
     return (
         <div className="animate-fade-in space-y-12 px-4">
             <section className="text-center py-12 sm:py-20 relative">
-                {/* Comic Background Elements */}
-                <div className="absolute top-10 left-10 text-4xl sm:text-6xl opacity-20 rotate-12">⭐</div>
-                <div className="absolute top-20 right-20 text-4xl sm:text-6xl opacity-15 -rotate-12 hidden sm:block">⚡</div>
-                <div className="absolute top-1/2 left-5 text-3xl sm:text-5xl opacity-10 rotate-45 hidden md:block">✨</div>
-                <div className="absolute top-1/3 right-10 text-3xl sm:text-5xl opacity-10 -rotate-45">💨</div>
-                <div className="absolute bottom-20 left-1/4 text-4xl sm:text-6xl opacity-15 rotate-12 hidden lg:block">🔥</div>
-                <div className="absolute bottom-10 right-10 text-4xl sm:text-6xl opacity-20 -rotate-12">💥</div>
-                {/* Full coverage additions */}
-                <div className="absolute top-1/4 left-1/3 text-3xl opacity-5 rotate-12">📈</div>
-                <div className="absolute bottom-1/3 right-1/3 text-4xl opacity-10 -rotate-12 hidden md:block">🍳</div>
-                <div className="absolute top-2/3 left-10 text-4xl opacity-10 rotate-45">🛍️</div>
-                <div className="absolute top-10 right-1/3 text-3xl opacity-15 -rotate-12">🍩</div>
-                <div className="absolute bottom-5 left-1/2 text-3xl opacity-10 -translate-x-1/2 rotate-12">🥑</div>
-                <div className="absolute top-1/2 left-1/4 text-4xl opacity-5 -rotate-45 hidden lg:block">🥛</div>
-
                 <h1 className="text-5xl sm:text-6xl md:text-8xl font-black text-black mb-4 sm:mb-6 drop-shadow-[4px_4px_0px_#fff] px-2">
                     KakiJimat
                 </h1>
