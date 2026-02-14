@@ -1,0 +1,13 @@
+jimatkaki:
+  target: dev
+  outputs:
+    dev:
+      type: postgres
+      host: "{{ env_var('DB_HOST', 'localhost') }}"
+      user: "{{ env_var('DB_USER', 'postgres') }}"
+      pass: "{{ env_var('DB_PASSWORD', 'password') }}"
+      port: "{{ env_var('DB_PORT', 5432) | int }}"
+      dbname: "{{ env_var('DB_NAME', 'postgres') }}"
+      schema: public
+      threads: 4
+      connect_timeout: 60

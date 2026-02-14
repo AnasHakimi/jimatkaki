@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.env
+.env.local
+
+# Node
+node_modules/
+dist/
+.DS_Store
+
+# dbt
+dbt_project/dbt_packages/
+dbt_project/target/
+dbt_project/logs/
+
+# Trino - Data should persist but maybe ignore large files if any or credentials
+trino/data/
+
+# IDEs
+.vscode/
+.idea/
+
+# OS
+Thumbs.db

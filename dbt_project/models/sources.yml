@@ -1,0 +1,8 @@
+version: 2
+
+sources:
+  - name: public
+    database: "{{ env_var('DB_NAME', 'postgres') }}"
+    schema: public
+    tables:
+      - name: price_reports
