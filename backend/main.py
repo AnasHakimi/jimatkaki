@@ -42,23 +42,43 @@ def create_report(report: models.PriceReportCreate, db: Session = Depends(get_db
 
 @app.get("/api/feed", response_model=List[models.PriceFeedItem])
 def get_feed(db: Session = Depends(get_db)):
-    # Read from Gold Layer (dbt view with freshness status)
+    # Hybrid approach: Bronze for real-time data + Gold for freshness status
     try:
+        # Try to join Bronze with Gold for freshness status
         result = db.execute(text("""
             SELECT 
-                id, item_name, category, price, store_name, 
-                reported_by, created_at, freshness_status
-            FROM price_feed_mart 
-            ORDER BY created_at DESC 
+                b.id, b.item_name, b.category, b.price, b.store_name, 
+                b.reported_by, b.created_at,
+                COALESCE(g.freshness_status, 
+                    CASE 
+                        WHEN b.created_at > NOW() - INTERVAL '3 hours' THEN 'FRESH'
+                        WHEN b.created_at > NOW() - INTERVAL '12 hours' THEN 'STALE'
+                        ELSE 'EXPIRED'
+                    END
+                ) as freshness_status
+            FROM price_reports b
+            LEFT JOIN price_feed_mart g ON b.id = g.id
+            ORDER BY b.created_at DESC 
             LIMIT 100
         """))
         return result.mappings().all()
     except Exception as e:
-        # Fallback to Bronze if Gold view doesn't exist yet
-        print(f"Gold layer not available: {e}")
-        bronze_result = db.query(sql_models.PriceReport).order_by(sql_models.PriceReport.created_at.desc()).limit(100).all()
-        # Mock freshness status as fallback
-        return [{"freshness_status": "FRESH", **r.__dict__} for r in bronze_result]
+        # Fallback: Calculate freshness in-query if Gold view doesn't exist
+        print(f"Using Bronze with calculated freshness: {e}")
+        result = db.execute(text("""
+            SELECT 
+                id, item_name, category, price, store_name, 
+                reported_by, created_at,
+                CASE 
+                    WHEN created_at > NOW() - INTERVAL '3 hours' THEN 'FRESH'
+                    WHEN created_at > NOW() - INTERVAL '12 hours' THEN 'STALE'
+                    ELSE 'EXPIRED'
+                END as freshness_status
+            FROM price_reports
+            ORDER BY created_at DESC 
+            LIMIT 100
+        """))
+        return result.mappings().all()
 
 @app.get("/api/leaderboard", response_model=List[models.Hero])
 def get_leaderboard(db: Session = Depends(get_db)):
