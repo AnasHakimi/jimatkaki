@@ -49,21 +49,21 @@ const HomePage = ({ heroes }) => {
                                 <span>Pro Tip!</span>
                             </h3>
                             <div className="space-y-4">
-                                <div className="bg-black/10 p-4 rounded-xl border-2 border-white/30 text-white leading-relaxed">
+                                <div className="bg-black/10 p-4 rounded-xl border-2 border-black/30 text-white leading-relaxed">
                                     <p className="font-bold text-sm sm:text-base">
                                         <span className="text-yellow-300 block mb-1">Did you know?</span>
                                         You can earn points by reporting prices! The more accurate reports you submit, the higher you climb on the leaderboard.
                                     </p>
                                 </div>
 
-                                <div className="bg-black/10 p-4 rounded-xl border-2 border-white/30 text-white leading-relaxed">
+                                <div className="bg-black/10 p-4 rounded-xl border-2 border-black/30 text-white leading-relaxed">
                                     <p className="font-bold text-sm sm:text-base">
                                         <span className="text-yellow-300 block mb-1">Community Power!</span>
                                         KakiJimat depends on people like you. When you share a price, everyone saves!
                                     </p>
                                 </div>
 
-                                <div className="bg-black/10 p-4 rounded-xl border-2 border-white/30 text-white leading-relaxed">
+                                <div className="bg-black/10 p-4 rounded-xl border-2 border-black/30 text-white leading-relaxed">
                                     <p className="font-bold text-sm sm:text-base">
                                         <span className="text-yellow-300 block mb-1">Stay Fresh!</span>
                                         Prices change fast. Always check the "Freshness" badge in the feed to see how recent a report is!
