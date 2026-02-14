@@ -16,7 +16,7 @@ const CATEGORIES = [
 const PriceFeed = ({ prices }) => {
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedCategory, setSelectedCategory] = useState('all');
-    const [visibleCount, setVisibleCount] = useState(12);
+    const [visibleCount, setVisibleCount] = useState(6);
 
     // Filtering logic
     const filteredPrices = useMemo(() => {
@@ -32,7 +32,7 @@ const PriceFeed = ({ prices }) => {
     const hasMore = visibleCount < filteredPrices.length;
 
     const handleLoadMore = () => {
-        setVisibleCount(prev => prev + 12);
+        setVisibleCount(prev => prev + 6);
     };
 
     return (

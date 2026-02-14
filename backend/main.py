@@ -42,17 +42,23 @@ def create_report(report: models.PriceReportCreate, db: Session = Depends(get_db
 
 @app.get("/api/feed", response_model=List[models.PriceFeedItem])
 def get_feed(db: Session = Depends(get_db)):
-    # FORCE BRONZE (Real-time) for Demo
-    # try:
-    #     # Try Gold Layer
-    #     result = db.execute(text("SELECT * FROM price_feed_mart LIMIT 100"))
-    #     return result.mappings().all()
-    # except Exception:
-    if True:
-        # Fallback to Bronze
+    # Read from Gold Layer (dbt view with freshness status)
+    try:
+        result = db.execute(text("""
+            SELECT 
+                id, item_name, category, price, store_name, 
+                reported_by, created_at, freshness_status
+            FROM price_feed_mart 
+            ORDER BY created_at DESC 
+            LIMIT 100
+        """))
+        return result.mappings().all()
+    except Exception as e:
+        # Fallback to Bronze if Gold view doesn't exist yet
+        print(f"Gold layer not available: {e}")
         bronze_result = db.query(sql_models.PriceReport).order_by(sql_models.PriceReport.created_at.desc()).limit(100).all()
-        # Mock freshness status
-        return [{**r.__dict__, "freshness_status": "FRESH"} for r in bronze_result]
+        # Mock freshness status as fallback
+        return [{"freshness_status": "FRESH", **r.__dict__} for r in bronze_result]
 
 @app.get("/api/leaderboard", response_model=List[models.Hero])
 def get_leaderboard(db: Session = Depends(get_db)):
