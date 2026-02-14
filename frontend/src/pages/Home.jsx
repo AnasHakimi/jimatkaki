@@ -13,13 +13,6 @@ const HomePage = ({ heroes }) => {
                 <div className="absolute top-1/3 right-10 text-3xl sm:text-5xl opacity-10 -rotate-45">💨</div>
                 <div className="absolute bottom-20 left-1/4 text-4xl sm:text-6xl opacity-15 rotate-12 hidden lg:block">🔥</div>
                 <div className="absolute bottom-10 right-10 text-4xl sm:text-6xl opacity-20 -rotate-12">💥</div>
-
-                {/* Newer additions */}
-                <div className="absolute top-5 left-1/2 text-3xl sm:text-4xl opacity-10 -translate-x-1/2 rotate-12">🏷️</div>
-                <div className="absolute top-1/2 right-5 text-3xl sm:text-5xl opacity-15 rotate-12 hidden sm:block">💸</div>
-                <div className="absolute bottom-1/4 left-10 text-3xl sm:text-5xl opacity-10 -rotate-12">💰</div>
-                <div className="absolute top-1/2 right-1/4 text-4xl sm:text-6xl opacity-5 rotate-45 hidden xl:block">🛒</div>
-
                 {/* Full coverage additions */}
                 <div className="absolute top-1/4 left-1/3 text-3xl opacity-5 rotate-12">📈</div>
                 <div className="absolute bottom-1/3 right-1/3 text-4xl opacity-10 -rotate-12 hidden md:block">🍳</div>
