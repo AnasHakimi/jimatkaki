@@ -59,7 +59,7 @@ const Footer = () => {
                             &copy; {new Date().getFullYear()} KakiJimat by Anaskimii.
                         </p>
                         <p className="text-gray-600 font-bold text-[10px] uppercase tracking-tighter">
-                            Built for Krackathon 2026
+                            Built for Krackathon 26
                         </p>
                     </div>
                 </div>
