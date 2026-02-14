@@ -12,7 +12,7 @@ const Navbar = () => {
             <nav className="hidden md:block fixed top-0 left-0 right-0 z-50 px-4 py-3">
                 <div className="max-w-6xl mx-auto bg-white border-[3px] border-black rounded-2xl px-6 py-3 flex justify-between items-center shadow-[6px_6px_0px_#000]">
                     <Link to="/" className="text-3xl font-black text-black tracking-tight transform hover:scale-105 transition-transform">
-                        JimatKaki 🦶
+                        KakiJimat 💸
                     </Link>
                     <div className="flex space-x-3">
                         <DesktopNavLink to="/" active={isActive('/')}>Home</DesktopNavLink>

@@ -11,7 +11,7 @@ const Footer = () => {
                         {/* Compact Branding */}
                         <div className="text-center md:text-left">
                             <h2 className="text-2xl sm:text-3xl font-black text-white leading-none mb-1">
-                                JimatKaki
+                                KakiJimat
                             </h2>
                             <p className="text-gray-400 font-bold text-xs sm:text-sm">
                                 Community powered price intelligence.
@@ -56,7 +56,7 @@ const Footer = () => {
 
                     <div className="mt-6 pt-4 border-t-2 border-gray-700/50 flex flex-col sm:flex-row justify-between items-center gap-2">
                         <p className="text-gray-500 font-black text-[10px] sm:text-xs uppercase tracking-widest text-center sm:text-left">
-                            &copy; {new Date().getFullYear()} JimatKaki by Anaskimii.
+                            &copy; {new Date().getFullYear()} KakiJimat by Anaskimii.
                         </p>
                         <p className="text-gray-600 font-bold text-[10px] uppercase tracking-tighter">
                             Built for Krackathon 2026

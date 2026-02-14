@@ -1,4 +1,4 @@
-# 🛒 JimatKaki - Community-Powered Price Intelligence
+# 🛒 KakiJimat - Community-Powered Price Intelligence
 
 > **Built for Krackathon 2026** | A real-time price tracking platform that empowers shoppers to save money together.
 
@@ -9,7 +9,7 @@
 
 ## 🎯 Overview
 
-**JimatKaki** (Malay for "Save Money") is a community-driven platform where users report and track grocery prices in real-time. By crowdsourcing price data, we help shoppers find the best deals and make informed purchasing decisions.
+**KakiJimat** (Malay for "Save Money") is a community-driven platform where users report and track grocery prices in real-time. By crowdsourcing price data, we help shoppers find the best deals and make informed purchasing decisions.
 
 ### ✨ Key Features
 

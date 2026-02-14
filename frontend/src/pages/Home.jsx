@@ -15,7 +15,7 @@ const HomePage = ({ heroes }) => {
                 <div className="absolute bottom-10 right-10 text-4xl sm:text-6xl opacity-20 -rotate-12">💥</div>
 
                 <h1 className="text-5xl sm:text-6xl md:text-8xl font-black text-black mb-4 sm:mb-6 drop-shadow-[4px_4px_0px_#fff] px-2">
-                    JimatKaki
+                    KakiJimat
                 </h1>
                 <p className="text-lg sm:text-xl md:text-2xl text-gray-700 font-bold max-w-2xl mx-auto mb-6 sm:mb-10 leading-relaxed bg-white/50 inline-block px-4 rounded-lg">
                     The community-powered price intelligence engine.
@@ -59,7 +59,7 @@ const HomePage = ({ heroes }) => {
                                 <div className="bg-black/10 p-4 rounded-xl border-2 border-white/30 text-white leading-relaxed">
                                     <p className="font-bold text-sm sm:text-base">
                                         <span className="text-yellow-300 block mb-1">Community Power!</span>
-                                        JimatKaki depends on people like you. When you share a price, everyone saves!
+                                        KakiJimat depends on people like you. When you share a price, everyone saves!
                                     </p>
                                 </div>
 

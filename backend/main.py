@@ -12,7 +12,7 @@ from database import engine, get_db
 # Create tables (Bronze only, dbt handles the rest)
 sql_models.Base.metadata.create_all(bind=engine)
 
-app = FastAPI(title="JimatKaki API", version="0.1.0")
+app = FastAPI(title="KakiJimat API", version="0.1.0")
 
 # CORS Middleware
 origins = [
@@ -74,5 +74,5 @@ def get_leaderboard(db: Session = Depends(get_db)):
 
 @app.get("/")
 def read_root():
-    return {"message": "Welcome to JimatKaki API"}
+    return {"message": "Welcome to KakiJimat API"}
 
