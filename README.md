@@ -46,31 +46,31 @@
 ```
 ┌─────────────────────────────────────────┐
 │  BRONZE (Raw Data)                      │
-│  price_reports table                    │
-│  - User submissions via FastAPI         │
+│  stg_price_reports                      │
+│  - Raw user submissions                 │
 └─────────────────────────────────────────┘
                  ↓ dbt transforms
 ┌─────────────────────────────────────────┐
 │  SILVER (Cleaned Data)                  │
-│  silver_price_reports view              │
-│  - Freshness calculations (FRESH/STALE) │
-│  - Data validation & cleaning           │
+│  cleaned_price_reports                  │
+│  - Data validation & string cleaning    │
+│  - Case normalization (INITCAP)         │
 └─────────────────────────────────────────┘
                  ↓ dbt aggregates
 ┌─────────────────────────────────────────┐
-│  GOLD (Analytics)                       │
-│  gold_leaderboard view                  │
+│  GOLD (Analytics / Marts)               │
+│  price_feed_mart & hero_leaderboard     │
+│  - Freshness logic (<3h, <12h)          │
 │  - User rankings & statistics           │
-│  - Business-ready insights              │
 └─────────────────────────────────────────┘
 ```
 
 **How dbt Works:**
-1. Users submit prices → FastAPI inserts into Bronze layer
-2. GitHub Actions triggers dbt every hour (or on push)
-3. dbt creates Silver views with freshness logic
-4. dbt creates Gold views with aggregated analytics
-5. FastAPI reads from views → Frontend displays fresh data
+1. Users submit prices → FastAPI inserts into Bronze layer (`price_reports` table)
+2. dbt reads from source → Create Silver mart (`cleaned_price_reports`) with normalized text
+3. dbt creates Gold layer → `price_feed_mart` (with freshness status) and `hero_leaderboard`
+4. Hybrid API logic → FastAPI joins Bronze (real-time) with Gold (freshness status)
+5. Frontend displays instant updates with smart dbt-powered status badges
 
 **How Trino Works:**
 - Enables querying across multiple data sources (PostgreSQL, CSV, S3, etc.)
@@ -93,8 +93,8 @@
 
 #### 1. Clone Repository
 ```bash
-git clone https://github.com/AnasHakimi/jimatkaki.git
-cd jimatkaki
+git clone https://github.com/AnasHakimi/kakijimat.git
+cd kakijimat
 ```
 
 #### 2. Backend Setup
@@ -185,9 +185,9 @@ DB_NAME=postgres
 - "Load More" pagination to prevent scroll fatigue
 
 ### 2. Smart Freshness Indicators
-- **FRESH** (< 24 hours) - Green badge
-- **STALE** (24-72 hours) - Yellow badge
-- **OLD** (> 72 hours) - Red badge
+- **FRESH** (< 3 hours) - Green badge
+- **STALE** (3-12 hours) - Yellow badge
+- **EXPIRED** (> 12 hours) - Red badge
 
 ### 3. Gamified Leaderboard
 - Top contributors ranked by submission count
@@ -227,27 +227,37 @@ CREATE TABLE price_reports (
 );
 ```
 
-### Silver Layer (dbt View)
+### Silver Layer (dbt Model)
 ```sql
-CREATE VIEW silver_price_reports AS
-SELECT 
-    *,
-    CASE 
-        WHEN age < INTERVAL '24 hours' THEN 'FRESH'
-        WHEN age < INTERVAL '72 hours' THEN 'STALE'
-        ELSE 'OLD'
-    END as freshness_status
-FROM price_reports;
+SELECT
+    id,
+    INITCAP(TRIM(item_name)) as item_name,
+    INITCAP(TRIM(category)) as category,
+    price,
+    INITCAP(TRIM(store_name)) as store_name,
+    reported_by,
+    created_at
+FROM {{ ref('stg_price_reports') }}
+WHERE price > 0 AND price < 10000;
 ```
 
-### Gold Layer (dbt View)
+### Gold Layer (dbt Marts)
 ```sql
-CREATE VIEW gold_leaderboard AS
+-- price_feed_mart
+SELECT
+    *,
+    CASE 
+        WHEN created_at > NOW() - INTERVAL '3 hours' THEN 'FRESH'
+        WHEN created_at > NOW() - INTERVAL '12 hours' THEN 'STALE'
+        ELSE 'EXPIRED'
+    END as freshness_status
+FROM {{ ref('cleaned_price_reports') }};
+
+-- hero_leaderboard
 SELECT 
-    reported_by,
-    COUNT(*) as report_count,
-    RANK() OVER (ORDER BY COUNT(*) DESC) as rank
-FROM price_reports
+    reported_by, 
+    COUNT(id) as total_reports
+FROM {{ ref('cleaned_price_reports') }}
 GROUP BY reported_by;
 ```
 
@@ -256,7 +266,7 @@ GROUP BY reported_by;
 ## 🧪 Testing
 
 ### Manual Testing
-1. Visit the live app: https://jimatkaki.vercel.app
+1. Visit the live app: https://kakijimat.vercel.app/
 2. Submit a test price report
 3. Verify it appears in the Live Feed
 4. Check the Leaderboard for your entry
