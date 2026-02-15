@@ -88,7 +88,7 @@ const PWAInstallPrompt = () => {
                         <p className="text-sm font-bold text-black/80 mt-1">
                             {platform === 'ios'
                                 ? "Tap 'Share' and then 'Add to Home Screen' to save money on the go!"
-                                : "Install KakiJimat for a faster, full-screen shopping experience!"}
+                                : "Install KakiJimat for a better experience!"}
                         </p>
                     </div>
                 </div>
