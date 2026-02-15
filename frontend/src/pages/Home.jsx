@@ -20,7 +20,7 @@ const HomePage = ({ heroes }) => {
                 <div className="absolute bottom-1/4 left-10 text-3xl sm:text-5xl opacity-10 -rotate-12">💰</div>
                 <div className="absolute top-1/2 right-1/4 text-4xl sm:text-6xl opacity-5 rotate-45 hidden xl:block">🛒</div>
 
-                <h1 className="text-5xl sm:text-6xl md:text-8xl font-black text-black mb-4 sm:mb-6 drop-shadow-[4px_4px_0px_#fff] px-2 animate-float">
+                <h1 className="text-5xl sm:text-6xl md:text-8xl font-black text-black mb-4 sm:mb-6 drop-shadow-[4px_4px_0px_#fff] px-2">
                     KakiJimat
                 </h1>
                 <p className="text-lg sm:text-xl md:text-2xl text-gray-700 font-bold max-w-2xl mx-auto mb-6 sm:mb-10 leading-relaxed bg-white/50 inline-block px-4 rounded-lg">
